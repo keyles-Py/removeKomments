@@ -28,36 +28,6 @@ class Logic:
         result.write(data)
         return self.download_file(result)
 
-        if lang == "python":
-            data = re.sub(r'(#.*?$)|("""[\s\S]*?""")|(\'\'\'[\s\S]*?\'\'\')', '', code, flags=re.MULTILINE)
-            result = open("result.py", "w+")
-            result.write(data)
-            return self.download_file(result)
-        
-        if lang == "java":
-            data = re.sub(r'(/\*[\s\S]*?\*/)|(//.*?$)', '', code, flags=re.MULTILINE)
-            result = open("result.java", "w+")
-            result.write(data)
-            return self.download_file(result)
-        
-        if lang == "html":
-            data = re.sub(r'<!--.*?-->', '', code, flags=re.MULTILINE)
-            result = open("result.html", "w+")
-            result.write(data)
-            return self.download_file(result)
-
-        if lang == "css":
-            data = re.sub(r'/\*[\s\S]*?\*/', '', code, flags=re.MULTILINE)
-            result = open("result.css", "w+")
-            result.write(data)
-            return self.download_file(result)
-
-        if lang == "js":
-            data = re.sub(r'(/\*[\s\S]*?\*/)|(//.*?$)', '', code, flags=re.MULTILINE)
-            result = open("result.js", "w+")
-            result.write(data)
-            return self.download_file(result)
-
     def download_file(self, file):
         file.seek(0)
         return file
