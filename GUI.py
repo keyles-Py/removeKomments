@@ -16,10 +16,16 @@ class GUI:
         self.file = st.file_uploader('Upload file', type=self.languages)
         
         if self.file is not None:
-            st.text('File uploaded successfully')
+            st.text('File uploaded successfully!')
             if st.button('Remove comments'): 
-                st.text('Comments removed successfully')
+                st.text('Comments removed successfully!')
                 file2download = logic.getLang(self.file.name, self.file.read().decode('utf-8', errors='ignore'))
                 st.download_button(label='Download file', data=file2download, file_name=self.file.name, mime='text/plain')
                 file2download.close()
                 os.remove(file2download.name)
+        
+
+        gitprofile = 'https://github.com/keyles-Py'
+        st.markdown(f'Developed by: [Keyles-Py]({gitprofile})')
+        url = 'https://github.com/keyles-Py/removeKomments'
+        st.markdown(f'[Repository of this project]({url})')
