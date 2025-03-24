@@ -1,3 +1,4 @@
+import io
 import re
 import streamlit as st
 
@@ -23,11 +24,12 @@ class Logic:
             "css": r'/\*[\s\S]*?\*/',
             "js": r'(/\*[\s\S]*?\*/)|(//.*?$)'
         }
-        data = re.sub(regexs[lang], '', code, flags=re.MULTILINE)
-        result = open("result.txt", "w+")
-        result.write(data)
-        return self.download_file(result)
+        lines = code.splitlines(keepends=True)
 
-    def download_file(self, file):
-        file.seek(0)
-        return file
+        cleaned_lines = [re.sub(regexs[lang], '', line, flags=re.MULTILINE) if line.strip() else line for line in lines]
+
+        cleaned_code = "".join( cleaned_lines )
+
+        file_buffer = io.StringIO(cleaned_code)
+        file_buffer.seek(0)
+        return file_buffer
