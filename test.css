@@ -1,0 +1,30 @@
+/* Este es un comentario multilínea
+   que describe el estilo general de la página */
+body {
+    background-color: #f0f0f0; /* Color de fondo de la página */
+    font-family: Arial, sans-serif; /* Fuente principal */
+}
+
+/* Estilo para los encabezados */
+h1 {
+    color: #333; /* Color del texto */
+    text-align: center; /* Alineación centrada */
+}
+
+/* Estilo para los párrafos */
+p {
+    line-height: 1.5; /* Altura de línea */
+    margin: 10px 0; /* Márgenes superior e inferior */
+}
+
+/* Este es otro comentario multilínea
+   que describe los estilos de los enlaces */
+a {
+    color: #007bff; /* Color del enlace */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Comentario de una línea para hover */
+a:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}

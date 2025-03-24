@@ -24,12 +24,7 @@ class Logic:
             "css": r'/\*[\s\S]*?\*/',
             "js": r'(/\*[\s\S]*?\*/)|(//.*?$)'
         }
-        lines = code.splitlines(keepends=True)
-
-        cleaned_lines = [re.sub(regexs[lang], '', line, flags=re.MULTILINE) if line.strip() else line for line in lines]
-
-        cleaned_code = "".join( cleaned_lines )
-
+        cleaned_code = re.sub(regexs[lang], '', code, flags=re.MULTILINE)
         file_buffer = io.StringIO(cleaned_code)
         file_buffer.seek(0)
         return file_buffer
