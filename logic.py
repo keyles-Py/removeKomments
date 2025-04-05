@@ -5,11 +5,11 @@ import streamlit as st
 class Logic:
     def __init__(self):
         self.regexs = {
-            "python": r'("""[\s\S]*?""")|(\'\'\'[\s\S]*?\'\'\')|(["\'].*?["\'])|#.*?$',
-            "java": r'(/\*[\s\S]*?\*/)|(//.*?$)',
-            "html": r'<!--.*?-->',
-            "css": r'/\*[\s\S]*?\*/',
-            "js": r'(/\*[\s\S]*?\*/)|(//.*?$)'
+            "python": r'("""[\s\S]*?""")|(["\'].*?["\'])|#.*?$|(\'\'\'[\s\S]*?\'\'\')',
+            "java": r'(/\*[\s\S]*?\*/)|(["\'].*?["\'])|(//.*?$)',
+            "html": r'(<!--.*?-->)|(".*?")|(<!--[\s\S]*?-->)',
+            "css": r'(/\*[\s\S]*?\*/)|(["\'].*?["\'])',
+            "js": r'(/\*[\s\S]*?\*/)(["\'].*?["\'])|(//.*?$)|',
         }
 
     def getLang(self, fileName, code):
@@ -25,8 +25,8 @@ class Logic:
                 return self.remove_komments(code, lang)
             
     def replacer(self, code):
-        if code.group(3):
-            return code.group(3)
+        if code.group(2):
+            return code.group(2)
         else:
             return ''
         

@@ -4,6 +4,9 @@ class Person():
         self.name = name
         self.age = age
     def display(self):#method
+        """
+        This method displays the name and age of the person.
+        """
         print("Name:", self.name, "Age:", self.age)
     def greet(self):
         print("Hello", self.name)
