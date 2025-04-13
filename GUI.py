@@ -1,13 +1,21 @@
 import os
 import streamlit as st
 from logic import Logic
-import re
 
+LANGUAGES = [".py", ".java", ".html", ".css", ".js"]
+TEST_FILES = {
+    "python": 'testFiles/test.py',
+    "java": 'testFiles/Test.java',
+    "html": 'testFiles/test.html',
+    "css": 'testFiles/test.css',
+    "js": 'testFiles/test.js'
+}
 
 class GUI:
     def __init__(self):
         self.file = None
-        self.languages = [".py", ".java", ".html", ".css", ".js"]
+        self.languages = LANGUAGES
+        self.test_files = TEST_FILES
 
     def run(self):
         logic = Logic()
@@ -18,15 +26,29 @@ class GUI:
         if self.file is not None:
             codigo = self.file.read().decode('utf-8', errors='ignore')
             if self.file.name.endswith('.java'):
-                st.text('This will not remove comments from JavaDoc')
+                st.text('This will remove JavaDoc')
+            if self.file.name.endswith('.py'):
+                st.text('This will remove docstrings')
+
             st.text('File uploaded successfully!')
             if st.button('Remove comments'): 
-                st.text('Comments removed successfully!')
-                file2download = logic.getLang(self.file.name, codigo)
-                st.download_button(label='Download file', data=file2download.getvalue(), file_name=self.file.name, mime='text/plain')
+                    with st.spinner("Removing comments..."):
+                        file2download = logic.getLang(self.file.name, codigo)
+                        st.success('Comments removed successfully!')
+                        st.download_button(label='Download file', data=file2download.getvalue(), file_name=self.file.name, mime='text/plain')
+
+        if st.button('Show test files'):
+            columns = st.columns(len(self.test_files))
+            for (lang, file), col in zip(self.test_files.items(), columns):
+                with col:
+                    with open(file, 'rb') as f:
+                        col.download_button(label=lang.capitalize(), data=f, file_name=os.path.basename(file), mime='text/plain', use_container_width=True)
+
         
+
 
         gitprofile = 'https://github.com/keyles-Py'
         st.markdown(f'Developed by: [Keyles-Py]({gitprofile})')
         url = 'https://github.com/keyles-Py/removeKomments'
         st.markdown(f'[Repository of this project]({url})')
+        st.markdown('Last update: 13-04-2025')
