@@ -11,6 +11,11 @@ TEST_FILES = {
     "js": 'testFiles/test.js'
 }
 
+st.set_page_config(
+    page_title="RemoveKomments",
+    page_icon="🤖",
+)
+
 class GUI:
     def __init__(self):
         self.file = None
@@ -37,15 +42,13 @@ class GUI:
                         st.success('Comments removed successfully!')
                         st.download_button(label='Download file', data=file2download.getvalue(), file_name=self.file.name, mime='text/plain')
 
-        if st.button('Show test files'):
-            columns = st.columns(len(self.test_files))
-            for (lang, file), col in zip(self.test_files.items(), columns):
-                with col:
-                    with open(file, 'rb') as f:
-                        col.download_button(label=lang.capitalize(), data=f, file_name=os.path.basename(file), mime='text/plain', use_container_width=True)
-
-        
-
+        if self.file is None:
+            if st.button('Show test files'):
+                columns = st.columns(len(self.test_files))
+                for (lang, file), col in zip(self.test_files.items(), columns):
+                    with col:
+                        with open(file, 'rb') as f:
+                            col.download_button(label=lang.capitalize(), data=f, file_name=os.path.basename(file), mime='text/plain', use_container_width=True)
 
         gitprofile = 'https://github.com/keyles-Py'
         st.markdown(f'Developed by: [Keyles-Py]({gitprofile})')
