@@ -1,6 +1,7 @@
 import os
 import streamlit as st
 from logic import Logic
+from styles import footer
 
 LANGUAGES = [".py", ".java", ".html", ".css", ".js"]
 TEST_FILES = {
@@ -31,15 +32,15 @@ class GUI:
         if self.file is not None:
             codigo = self.file.read().decode('utf-8', errors='ignore')
             if self.file.name.endswith('.java'):
-                st.text('This will remove JavaDoc')
+                st.badge("This will remove JavaDoc!", icon="⚠️", color="orange")
             if self.file.name.endswith('.py'):
-                st.text('This will remove docstrings')
+                st.badge("This will remove docstrings!", icon="⚠️", color="orange")
 
             st.text('File uploaded successfully!')
-            if st.button('Remove comments'): 
-                    with st.spinner("Removing comments..."):
+            if st.button('Remove Komments'): 
+                    with st.spinner("Removing Komments..."):
                         file2download = logic.getLang(self.file.name, codigo)
-                        st.success('Comments removed successfully!')
+                        st.success('Komments removed successfully!')
                         st.download_button(label='Download file', data=file2download.getvalue(), file_name=self.file.name, mime='text/plain')
 
         if self.file is None:
@@ -50,8 +51,4 @@ class GUI:
                         with open(file, 'rb') as f:
                             col.download_button(label=lang.capitalize(), data=f, file_name=os.path.basename(file), mime='text/plain', use_container_width=True)
 
-        gitprofile = 'https://github.com/keyles-Py'
-        st.markdown(f'Developed by: [Keyles-Py]({gitprofile})')
-        url = 'https://github.com/keyles-Py/removeKomments'
-        st.markdown(f'[Repository of this project]({url})')
-        st.markdown('Last update: 13-04-2025')
+        st.markdown(footer, unsafe_allow_html=True)
