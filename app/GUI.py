@@ -42,6 +42,13 @@ class GUI:
                 accept_multiple_files=True,
                 key="uploader"
             )
+            if st.button('Show test files'):
+                            columns = st.columns(len(self.test_files))
+                            for (lang, file), col in zip(self.test_files.items(), columns):
+                                with col:
+                                    if os.path.exists(file):
+                                        with open(file, 'rb') as f:
+                                            col.download_button(label=lang.capitalize(), data=f, file_name=os.path.basename(file), mime='text/plain', use_container_width=True)
 
             if uploaded_files:
                 st.info(f"**{len(uploaded_files)} file(s) attached.**")
@@ -98,6 +105,7 @@ class GUI:
 
         # Tab 2: Process Local Directory Directly
         with tab_dir:
+            st.badge("You can try './testFiles' to see how this tab works, if you want it to work with your local directories clone the repo.", icon="⚠️", color="yellow")
             dir_path = st.text_input(
                 'Enter directory path:',
                 placeholder=r'e.g. C:\Projects\my_app or ./testFiles',
@@ -160,16 +168,6 @@ class GUI:
                                         st.subheader(rel)
                                         st.code(content[:1000] + ('\n...' if len(content) > 1000 else ''), language='text')
 
-        # Fallback test files if nothing uploaded or specified
-        if not uploaded_files and not dir_path:
-            if st.button('Show test files'):
-                columns = st.columns(len(self.test_files))
-                for (lang, file), col in zip(self.test_files.items(), columns):
-                    with col:
-                        if os.path.exists(file):
-                            with open(file, 'rb') as f:
-                                col.download_button(label=lang.capitalize(), data=f, file_name=os.path.basename(file), mime='text/plain', use_container_width=True)
-
         st.divider()
         with st.expander("How does this work?"):
             st.markdown("""
@@ -210,4 +208,4 @@ class GUI:
             st.divider()
             st.caption("The rest of the app is built with Streamlit. Thanks for reading! :)")
 
-        st.markdown(footer, unsafe_allow_html=True)
+        st.markdown(footer, unsafe_allow_html=True)

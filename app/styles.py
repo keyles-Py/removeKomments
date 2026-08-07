@@ -33,6 +33,6 @@ box-sizing: border-box;
 <div class="footer">
 <p>Repo: <a href="https://github.com/keyles-Py/removeKomments" target="_blank"> RemoveKomments</a></p>
 <p>Developed by <a href="https://github.com/keyles-Py" target="_blank"> keyles-Py</a></p>
-<p>Last update: 19 Dec 2025</p>
+<p>Last update: August 7, 2026 -------------------------</p>
 </div>
 """
